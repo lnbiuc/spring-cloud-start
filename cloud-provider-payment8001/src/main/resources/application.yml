@@ -22,4 +22,4 @@ eureka:
     #\u662F\u5426\u4ECEEurekaServer\u6293\u53D6\u5DF2\u6709\u7684\u6CE8\u518C\u4FE1\u606F\uFF0C\u9ED8\u8BA4\u4E3Atrue\u3002\u5355\u8282\u70B9\u65E0\u6240\u8C13\uFF0C\u96C6\u7FA4\u5FC5\u987B\u8BBE\u7F6E\u4E3Atrue\u624D\u80FD\u914D\u5408ribbon\u4F7F\u7528\u8D1F\u8F7D\u5747\u8861
     fetchRegistry: true
     service-url:
-      defaultZone: http://localhost:7001/eureka
+      defaultZone: http://127.0.0.1:7001/eureka, http://127.0.0.1:7002/eureka, http://127.0.0.1:7003/eureka
