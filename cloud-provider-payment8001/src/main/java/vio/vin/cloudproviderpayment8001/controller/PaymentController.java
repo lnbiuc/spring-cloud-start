@@ -2,6 +2,7 @@ package vio.vin.cloudproviderpayment8001.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 import vio.vin.cloudapicommons.entities.CommonResult;
 import vio.vin.cloudapicommons.entities.Payment;
@@ -14,9 +15,12 @@ public class PaymentController
 {
     private final PaymentService paymentService;
 
-    public PaymentController(PaymentService paymentService)
+    private final DiscoveryClient discoveryClient;
+
+    public PaymentController(PaymentService paymentService, DiscoveryClient discoveryClient)
     {
         this.paymentService = paymentService;
+        this.discoveryClient = discoveryClient;
     }
 
     @Value("${server.port}")
@@ -42,5 +46,13 @@ public class PaymentController
     {
         log.info("get payment by id {} : {}", serverPort, id);
         return new CommonResult<>(200, "success_" + serverPort, paymentService.getById(id));
+    }
+
+    @GetMapping("discovery")
+    public Object discovery()
+    {
+        discoveryClient.getServices().forEach(log::info);
+        discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE").forEach(instance -> log.info(instance.getServiceId() + "\t" + instance.getHost() + "\t" + instance.getPort() + "\t" + instance.getUri()));
+        return discoveryClient;
     }
 }
