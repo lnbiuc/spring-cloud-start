@@ -1,11 +1,11 @@
-package vio.vin.cloudproviderpayment8001.controller;
+package vio.vin.cloudproviderpayment8002.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import vio.vin.cloudapicommons.entities.CommonResult;
 import vio.vin.cloudapicommons.entities.Payment;
-import vio.vin.cloudproviderpayment8001.service.PaymentService;
+import vio.vin.cloudproviderpayment8002.service.PaymentService;
 
 @RestController
 @RequestMapping("payment")
