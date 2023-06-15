@@ -10,6 +10,13 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: http://127.0.0.1:7001/eureka, http://127.0.0.1:7002/eureka, http://127.0.0.1:7003/eureka
+logging:
+  level:
+    # feign日志以什么级别监控哪个接口
+    vio.vin.cloudconsumerfeignorder80.service.PaymentFeignService: debug
 feign:
-  httpclient:
-    connection-timeout: 3000
+  client:
+    config:
+      default:
+          connectTimeout: 3000
+          readTimeout: 3000

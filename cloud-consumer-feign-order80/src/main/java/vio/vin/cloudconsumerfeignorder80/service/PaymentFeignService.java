@@ -9,7 +9,7 @@ import vio.vin.cloudapicommons.entities.CommonResult;
 import vio.vin.cloudapicommons.entities.Payment;
 
 @Service
-@FeignClient("CLOUD-PAYMENT-SERVICE")
+@FeignClient(value = "CLOUD-PAYMENT-SERVICE", name = "CLOUD-PAYMENT-SERVICE")
 public interface PaymentFeignService
 {
     @GetMapping(value = "/payment/get/{id}")

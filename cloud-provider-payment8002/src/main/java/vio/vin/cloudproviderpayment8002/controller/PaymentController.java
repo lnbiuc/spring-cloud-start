@@ -29,7 +29,9 @@ public class PaymentController
     @PostMapping("create")
     public CommonResult<Payment> create(@RequestBody Payment payment)
     {
+        long start = System.currentTimeMillis();
         Payment result = paymentService.create(payment);
+        log.info("create payment cost {} ms", System.currentTimeMillis() - start);
         if (result != null)
         {
             log.info("create payment {} : {}", serverPort, result);
@@ -44,8 +46,11 @@ public class PaymentController
     @GetMapping("get/{id}")
     public CommonResult<Payment> getById(@PathVariable Long id)
     {
+        long start = System.currentTimeMillis();
+        Payment payment = paymentService.getById(id);
+        log.info("get payment cost {} ms", System.currentTimeMillis() - start);
         log.info("get payment by id {} : {}", serverPort, id);
-        return new CommonResult<>(200, "success_" + serverPort, paymentService.getById(id));
+        return new CommonResult<>(200, "success_" + serverPort, payment);
     }
 
     @GetMapping("discovery")
