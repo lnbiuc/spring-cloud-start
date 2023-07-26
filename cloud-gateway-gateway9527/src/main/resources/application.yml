@@ -22,6 +22,19 @@ spring:
           uri: lb://cloud-payment-service     #匹配后提供服务的路由地址
           predicates:
             - Path=/payment/create/**         # 断言，路径相匹配的进行路由
+                                              # [ After ]                       // 指定日期之后
+                                              # [ Before ]                      // 指定日期之前
+                                              # [ Between ]                     // 在指定日期之间
+                                              # [ Cookie ]                      // 匹配指定cookie的值
+                                              # [ Header ]                      // 匹配指定请求头的值
+                                              # [ Host ]                        // 匹配请求的host
+                                              # [ Method ]                      // 匹配请求的方法
+                                              # [ Path ]                        // 匹配请求的路径
+                                              # [ Query ]                       // 匹配请求的参数
+                                              # [ ReadBodyPredicateFactory ]    // 匹配请求体
+                                              # [ RemoteAddr ]                  // 匹配请求的远程地址
+                                              # [ Weight ]                      // 匹配请求的权重
+                                              # [ CloudFoundryRouteService ]    // 匹配CloudFoundry路由服务
 eureka:
   instance:
     hostname: cloud-gateway-service
