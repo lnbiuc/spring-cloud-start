@@ -1,5 +1,6 @@
 package vio.vin.cloudconsumerfeignhystrixorder80.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,9 @@ import vio.vin.cloudconsumerfeignhystrixorder80.service.PaymentHystrixService;
 @RestController
 @Slf4j
 @RequestMapping("consumer/hystrix")
+@DefaultProperties(defaultFallback = "defaultFallback", commandProperties = {
+        @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "3000")
+}) // 默认的服务降级方法
 public class OrderHystrixController
 {
     private final PaymentHystrixService paymentHystrixService;
@@ -31,9 +35,10 @@ public class OrderHystrixController
     }
 
     @GetMapping("timeout/{id}")
-    @HystrixCommand(fallbackMethod = "paymentInfo_TimeOutHandler", commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
-    })
+//    @HystrixCommand(fallbackMethod = "paymentInfo_TimeOutHandler", commandProperties = {
+//            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
+//    })
+    @HystrixCommand // 使用默认的服务降级方法
     public String paymentInfo_TimeOut(@PathVariable("id") Integer id) {
         String result = paymentHystrixService.paymentInfo_TimeOut(id);
         log.info("paymentInfo_TimeOut: "+result);
@@ -44,5 +49,10 @@ public class OrderHystrixController
     {
         log.info("paymentInfo_TimeOutHandler: " + id);
         return "80-fallbackMethod";
+    }
+
+    public String defaultFallback()
+    {
+        return "80-defaultFallback";
     }
 }
