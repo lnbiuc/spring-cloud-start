@@ -16,11 +16,11 @@ public class PaymentService
     {
         try
         {
-            TimeUnit.MILLISECONDS.sleep(2000);
+            TimeUnit.MILLISECONDS.sleep(5000);
         } catch (InterruptedException e)
         {
             e.printStackTrace();
         }
-        return "TIME_OUT__线程池:  " + Thread.currentThread().getName() + " " + id + "  耗时(秒): 2";
+        return "TIME_OUT__线程池:  " + Thread.currentThread().getName() + " " + id + "  耗时(秒): 5";
     }
 }
