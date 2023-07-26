@@ -1,5 +1,6 @@
 /**
  * //设置隔离策略，THREAD表示线程地SEMAPHORE:信号池隔离
+ *
  * @HystrixProperty(name = "execution.isolation.strategy", value = "THREAD"),
  * //当隔离策略选择信号池隔离的时候，用来设置信号池的大小(最大并发数)
  * @HystrixProperty(name = "execution.isolation.semaphore.maxConcurrentRequests", value = "10"),
@@ -65,6 +66,7 @@
  */
 package vio.vin.cloudproviderhygtrixpayment8001.service;
 
+import cn.hutool.core.util.IdUtil;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.extern.slf4j.Slf4j;
@@ -84,21 +86,42 @@ public class PaymentService
     // fallbackMethod: 指定服务降级处理方法
     // commandProperties: 指定服务降级的属性
     @HystrixCommand(fallbackMethod = "paymentInfo_TimeOutHandler", commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000")
     })
     public String paymentInfo_TimeOut(Integer id)
     {
         try {
-            TimeUnit.MILLISECONDS.sleep(3000);
+            TimeUnit.MILLISECONDS.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return "TIME_OUT__线程池:  " + Thread.currentThread().getName() + " " + id + "  耗时(秒): 3";
+        return "TIME_OUT__线程池:  " + Thread.currentThread().getName() + " " + id + "  耗时(秒): 1";
     }
 
     public String paymentInfo_TimeOutHandler(Integer id)
     {
         log.info("paymentInfo_TimeOutHandler: " + id);
         return "fallbackMethod";
+    }
+
+    @HystrixCommand(fallbackMethod = "paymentCircuitBreakerFallback", commandProperties = {
+            @HystrixProperty(name = "circuitBreaker.enabled", value = "true"), // 是否开启断路器
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"), // 请求次数
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000"), // 时间窗口期
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60") // 失败率达到多少后熔断
+    })
+    public String paymentCircuitBreaker(Integer id)
+    {
+        if (id < 0) {
+            throw new RuntimeException("id不能为负数");
+        }
+        String serialNumber = IdUtil.simpleUUID();
+
+        return Thread.currentThread().getName() + " 调用成功，流水号: " + serialNumber;
+    }
+
+    public String paymentCircuitBreakerFallback(Integer id)
+    {
+        return "paymentCircuitBreakerFallback_id不能为负数: " + id;
     }
 }

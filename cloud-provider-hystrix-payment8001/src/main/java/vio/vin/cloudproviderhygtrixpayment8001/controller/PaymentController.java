@@ -33,6 +33,16 @@ public class PaymentController
     {
         String result = paymentService.paymentInfo_TimeOut(id);
         log.info("count: " + count + " " + result);
+        count++;
         return result;
+    }
+
+    @GetMapping("/payment/circuit/{id}")
+    public String paymentCircuitBreaker(@PathVariable("id") Integer id)
+    {
+        String result = paymentService.paymentCircuitBreaker(id);
+        log.info("count: " + count + " " + result);
+        count++;
+        return count + "_ _" + result;
     }
 }
