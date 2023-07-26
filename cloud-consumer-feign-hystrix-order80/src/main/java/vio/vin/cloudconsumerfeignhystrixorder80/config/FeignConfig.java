@@ -1,6 +1,7 @@
 package vio.vin.cloudconsumerfeignhystrixorder80.config;
 
 import feign.Logger;
+import feign.Request;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,5 +18,12 @@ public class FeignConfig
           FULL：除了HEADERS中定义的信息之外，还有请求和响应的正文及元数据。
          */
         return Logger.Level.FULL;
+    }
+
+
+    @Bean
+    public Request.Options options()
+    {
+        return new Request.Options(5000, 5000);
     }
 }

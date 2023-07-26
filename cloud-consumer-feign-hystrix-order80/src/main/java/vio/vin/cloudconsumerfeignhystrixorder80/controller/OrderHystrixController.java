@@ -14,7 +14,7 @@ import vio.vin.cloudconsumerfeignhystrixorder80.service.PaymentHystrixService;
 @Slf4j
 @RequestMapping("consumer/hystrix")
 @DefaultProperties(defaultFallback = "defaultFallback", commandProperties = {
-        @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "3000")
+        @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
 }) // 默认的服务降级方法
 public class OrderHystrixController
 {
@@ -45,12 +45,12 @@ public class OrderHystrixController
         return result;
     }
 
-    public String paymentInfo_TimeOutHandler(@PathVariable("id") Integer id)
-    {
-        log.info("paymentInfo_TimeOutHandler: " + id);
-        return "80-fallbackMethod";
-    }
-
+//    public String paymentInfo_TimeOutHandler(@PathVariable("id") Integer id)
+//    {
+//        log.info("paymentInfo_TimeOutHandler: " + id);
+//        return "80-fallbackMethod";
+//    }
+//
     public String defaultFallback()
     {
         return "80-defaultFallback";
