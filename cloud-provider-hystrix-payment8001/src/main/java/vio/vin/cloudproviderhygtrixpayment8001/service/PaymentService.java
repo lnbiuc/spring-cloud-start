@@ -84,16 +84,16 @@ public class PaymentService
     // fallbackMethod: 指定服务降级处理方法
     // commandProperties: 指定服务降级的属性
     @HystrixCommand(fallbackMethod = "paymentInfo_TimeOutHandler", commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "3000")
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
     })
     public String paymentInfo_TimeOut(Integer id)
     {
         try {
-            TimeUnit.MILLISECONDS.sleep(5000);
+            TimeUnit.MILLISECONDS.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return "TIME_OUT__线程池:  " + Thread.currentThread().getName() + " " + id + "  耗时(秒): 5";
+        return "TIME_OUT__线程池:  " + Thread.currentThread().getName() + " " + id + "  耗时(秒): 3";
     }
 
     public String paymentInfo_TimeOutHandler(Integer id)

@@ -14,5 +14,8 @@ feign:
   client:
     config:
       default:
-        connectTimeout: 3000
-        readTimeout: 3000
+        connectTimeout: 4000
+        readTimeout: 4000
+logging:
+  level:
+    vio.vin.cloudconsumerfeignhystrixorder80.service.PaymentHystrixService: debug
