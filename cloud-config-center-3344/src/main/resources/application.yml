@@ -8,10 +8,10 @@ spring:
     config:
       server:
         git:
-          uri: git@github.com:lnbiuc/springcloud-start-config.git #GitHub上面的git仓库名字
+          uri: https://gitee.com/lnbiuc/springcloud-start-config.git #GitHub上面的git仓库名字
           search-paths:
             - springcloud-start-config
-      label: main
+      label: master
 
 #服务注册到eureka地址
 eureka:
