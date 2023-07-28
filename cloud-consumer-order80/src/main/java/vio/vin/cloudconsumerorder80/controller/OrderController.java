@@ -34,4 +34,10 @@ public class OrderController
         log.info("get payment by id: {}", id);
         return template.getForObject(PAYMENT_URL + "/payment/get/" + id, CommonResult.class);
     }
+
+    @GetMapping("/zipkin")
+    public String paymentZipkin()
+    {
+        return template.getForObject(PAYMENT_URL + "/payment/zipkin/", String.class);
+    }
 }

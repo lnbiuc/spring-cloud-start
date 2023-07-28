@@ -60,4 +60,9 @@ public class PaymentController
         discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE").forEach(instance -> log.info(instance.getServiceId() + "\t" + instance.getHost() + "\t" + instance.getPort() + "\t" + instance.getUri()));
         return discoveryClient;
     }
+
+    @GetMapping("/zipkin")
+    public String paymentZipkin() {
+        return "hi ,i'm paymentzipkin server fall back，welcome to vio，O(∩_∩)O哈哈~";
+    }
 }

@@ -10,6 +10,11 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/cloud?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
     password: mysqlforserver@date0522
+  zipkin: #<-------------------------------------关键
+    base-url: http://154.12.27.44:9411
+  sleuth: #<-------------------------------------关键
+    sampler:
+      probability: 1 #<-------------------------------------关键
 
 mybatis:
   mapperLocations: classpath:mapper/*.xml

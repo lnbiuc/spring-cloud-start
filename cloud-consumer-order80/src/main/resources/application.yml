@@ -4,7 +4,11 @@ server:
 spring:
   application:
     name: cloud-order-service
-
+  zipkin: #<-------------------------------------关键
+    base-url: http://154.12.27.44:9411
+  sleuth: #<-------------------------------------关键
+    sampler:
+      probability: 1 #<-------------------------------------关键
 eureka:
   client:
     #表示是否将自己注册进Eurekaserver默认为true。
