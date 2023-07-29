@@ -22,12 +22,7 @@ docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 --restart always --net
 ```shell
 docker run -d --name zipkin -p 9411:9411 --restart always --network docker-net --ip 192.168.0.5 --memory="500m" openzipkin/zipkin
 ```
-
-```
-Class.forName("com.mysql.cj.jdbc.Driver");
-Connection conn = DriverManager.getConnection(
-  "jdbc:mysql://aws.connect.psdb.cloud/cloud?sslMode=VERIFY_IDENTITY",
-  "hr9elvtij6iighwaq81q",
-  "pscale_pw_D92zUdnumJcPyL9aXI7wdu4BPViFniPa735h4kPyqA");
-
+## nacos
+```shell
+docker run -d --name nacos -p 8848:8848 --restart always --network docker-net --ip 192.168.0.6 --memory="500m" nacos/nacos-server
 ```
