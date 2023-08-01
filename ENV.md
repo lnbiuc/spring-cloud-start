@@ -83,3 +83,11 @@ http {
 ```
 
 [http://127.0.0.1:8848/nacos/](http://127.0.0.1:8848/nacos/)
+
+## sentinel
+
+```shell
+docker run --name sentinel  -d -p 8858:8858 -d  bladex/sentinel-dashboard
+```
+
+[http://127.0.0.1:8858/](http://127.0.0.1:8858/)
