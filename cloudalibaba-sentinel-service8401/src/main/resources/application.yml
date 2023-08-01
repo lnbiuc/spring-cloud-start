@@ -1,0 +1,25 @@
+server:
+  port: 8401
+
+spring:
+  application:
+    name: cloudalibaba-sentinel-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:1111 #Nacos服务注册中心地址
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8858 #配置Sentinel dashboard地址
+        client-ip: 127.0.0.1 #配置Sentinel客户端地址
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+feign:
+  sentinel:
+    enabled: true # 激活Sentinel对Feign的支持
+
